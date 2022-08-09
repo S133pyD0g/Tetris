@@ -1,18 +1,15 @@
 //tile class definition
 
-#pragma once
-#include <iostream>
-
 class tile
 {
     public:
-    int pos ;
-    int rotation;
-    int type;
-    bool cage[9];
+        int pos ;
+        int rotation;
+        int type;
+        int piecePos[4];
 
-    tile();
-    ~tile();
-    void rotate();
+        tile();
+        ~tile();
+        void rotate();
 
 };

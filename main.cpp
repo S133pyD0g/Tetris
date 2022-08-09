@@ -1,12 +1,12 @@
-//main file that is executed
+#include "tetris.hpp"
+#include "tile.hpp"
 
-//#include <iostream>
-#include "tile.cpp"
-#include <unistd.h>
+//main file that is executed
 
 int main(){
     clearBoard();
     tile actTile;
+
     /*std::cout<<actTile.rotation<<std::endl;
     actTile.changeRotation();
     std::cout<<actTile.rotation<<std::endl;
@@ -20,8 +20,12 @@ int main(){
     actTile.rotate();
     printBoard();*/
 
-    while (true)
-    {
-
-    }
+    actTile.pos = 95;
+    actTile.piecePos[0] = actTile.pos;
+    actTile.piecePos[1] = 94;
+    actTile.piecePos[2] = 96;
+    actTile.piecePos[3] = 84;
+    printBoard(actTile.piecePos);
+    actTile.rotate();
+    printBoard(actTile.piecePos);
 }
