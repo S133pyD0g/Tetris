@@ -3,7 +3,7 @@
 class tile
 {
     public:
-        int pos ;
+        int pos;
         int rotation;
         int type;
         int piecePos[4];
@@ -11,5 +11,7 @@ class tile
         tile();
         ~tile();
         void rotate();
-
+        void moveDown();
+        void moveLeft();
+        void moveRight();
 };

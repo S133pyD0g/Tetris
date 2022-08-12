@@ -9,6 +9,7 @@ void clearBoard(){
         board[i] = 0;
     }
 }
+
 void printBoard(int piecesPos[4]){
     for (int i = 0; i < 4; i++){
         board[piecesPos[i]] = true;
