@@ -14,7 +14,7 @@ void printBoard(int piecesPos[4]){
     for (int i = 0; i < 4; i++){
         board[piecesPos[i]] = true;
     }
-    std::cout<<"\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+    std::cout<<"\n\n\n";
     for(int i = 0; i < sizeof(board); i++){
         if (i % 10 == 0){
             std::cout<<"\n";

@@ -3,7 +3,6 @@
 class tile
 {
     public:
-        int pos;
         int rotation;
         int type;
         int piecePos[4];
