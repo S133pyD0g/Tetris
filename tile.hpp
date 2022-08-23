@@ -1,3 +1,5 @@
+#pragma once
+
 //tile class definition
 
 class tile
@@ -5,7 +7,7 @@ class tile
     public:
         int rotation;
         int type;
-        int piecePos[4];
+        int pos[4];
 
         tile();
         ~tile();
@@ -13,4 +15,5 @@ class tile
         void moveDown();
         void moveLeft();
         void moveRight();
+        bool collisionCheck(bool board[200]);
 };
