@@ -15,7 +15,6 @@ int main()
     clearBoard();
     int press = 0;
     int pressed = 0;
-    board[105] = true;
 
     while (true)
     {
@@ -29,24 +28,24 @@ int main()
                 switch (press)
                 {
                 case 1:
-                    actTile.rotate();
+                    actTile.rotate(board);
                     printBoard(actTile.pos);
-                    std::cout<<"1"<<std::flush;
+                    //std::cout<<"1"<<std::flush;
                     break;
                 case 2:
-                    actTile.moveLeft();
+                    actTile.moveLeft(board);
                     printBoard(actTile.pos);
-                    std::cout<<"2"<<std::flush;
+                    //std::cout<<"2"<<std::flush;
                     break;
                 case 3:
-                    actTile.moveRight();
+                    actTile.moveRight(board);
                     printBoard(actTile.pos);
-                    std::cout<<"3"<<std::flush;
+                    //std::cout<<"3"<<std::flush;
                     break;
                 case 4:
                     actTile.moveDown();
                     printBoard(actTile.pos);
-                    std::cout<<"4"<<std::flush;
+                    //std::cout<<"4"<<std::flush;
                     break;
                 default:
                     break;
@@ -59,13 +58,13 @@ int main()
         for(int i=0; i<4; i++){
             board[actTile.pos[i]] = true;
         }
+        updateBoard();
     }
-    //printBoard(actTile.pos);
-        
-
-    //auto start = std::chrono::high_resolution_clock::now();
-    //auto finish = std::chrono::high_resolution_clock::now();
-    //std::chrono::duration<double> elapsed = finish - start;
-    //std::cout<<elapsed.count();
-    //while(int(elapsed.count() * 10) % 10 != 0){};
 }
+
+//printBoard(actTile.pos);
+//auto start = std::chrono::high_resolution_clock::now();
+//auto finish = std::chrono::high_resolution_clock::now();
+//std::chrono::duration<double> elapsed = finish - start;
+//std::cout<<elapsed.count();
+//while(int(elapsed.count() * 10) % 10 != 0){};

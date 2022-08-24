@@ -1,5 +1,4 @@
 #pragma once
-
 //tile class definition
 
 class tile
@@ -11,9 +10,9 @@ class tile
 
         tile();
         ~tile();
-        void rotate();
+        void rotate(bool board[200]);
         void moveDown();
-        void moveLeft();
-        void moveRight();
+        void moveLeft(bool board[200]);
+        void moveRight(bool board[200]);
         bool collisionCheck(bool board[200]);
 };

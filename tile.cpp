@@ -3,6 +3,7 @@
 #include <iostream>
 #include <time.h>
 
+
 //executables of the class functions defined in tile.hpp
 
 tile::tile(){
@@ -53,7 +54,7 @@ tile::tile(){
 tile::~tile(){}
 
 //calculates new position of all pieces of the tile when turning 90* with the piecePos[0] tile as turning point
-void tile::rotate(){
+void tile::rotate(bool board[200]){
     this->rotation++;
     this->rotation %= 4;
     int xOffset, yOffset;
@@ -62,8 +63,8 @@ void tile::rotate(){
             xOffset = pos[i]%10 -pos[0]%10;
             yOffset = (pos[i]-pos[0]-xOffset)/10;
             int newPos = xOffset*10 - yOffset + pos[0];
-            if(pos[0]%10 - yOffset < 0 || pos[0]%10 - yOffset > 9 || newPos > 199 || newPos < 0){
-                std::cout<<"can't rotate";
+            if(pos[0]%10 - yOffset < 0 || pos[0]%10 - yOffset > 9 || newPos > 199 || newPos < 0 || board[newPos]){
+                //std::cout<<"can't rotate";
                 return;
             }
         }
@@ -76,11 +77,11 @@ void tile::rotate(){
     }
 }
 
-//functions to move tile 1 space down, left and right
-void tile::moveLeft(){
+//functions to move tile 1 space left, right and down
+void tile::moveLeft(bool board[200]){
     for( int i = 0; i < 4; i++){
-        if(pos[i]%10-1<0){
-            std::cout<<"can't move left";
+        if(pos[i]%10-1<0||board[pos[i]-1]){
+            //std::cout<<"can't move left";
             return;
         }
     }
@@ -88,10 +89,10 @@ void tile::moveLeft(){
         pos[i] = pos[i] -1;
     }
 }
-void tile::moveRight(){
+void tile::moveRight(bool board[200]){
     for( int i = 0; i < 4; i++){
-        if(pos[i]%10+1>9){
-            std::cout<<"can't move right";
+        if(pos[i]%10+1>9||board[pos[i]+1]){
+            //std::cout<<"can't move right";
             return;
         }
     }
@@ -100,12 +101,6 @@ void tile::moveRight(){
     }
 }
 void tile::moveDown(){
-    for( int i = 0; i < 4; i++){
-        if(pos[i] + 10 > 199){
-            std::cout<<"can't move down";
-            return;
-        }
-    }
     for (int i = 0; i < 4; i++){
         pos[i] += 10;
     }
@@ -114,7 +109,7 @@ void tile::moveDown(){
 //collisionCheck on previous tiles
 bool tile::collisionCheck(bool board[200]){
     for(int i = 0; i < 4; i++){
-        if(board[pos[i]+10]){
+        if(board[pos[i]+10]||pos[i]+10>=200){
             return true;
         }
     }

@@ -24,6 +24,28 @@ void printBoard(int piecesPos[4]){
         board[piecesPos[i]] = false;
     }
 }
+//removes full lines and moves all of the above down
+int updateBoard(){
+    int linesRemoved = 0;
+    for(int i=0; i<20; i++){
+        int counter = 0;
+        for(int j=0; j<10; j++){
+            if(board[i*10+j])
+            counter ++;
+        }
+        if(counter == 10){
+            std::cout<<"line"<<i<<"to be removed"<<std::flush;
+            for(int j=i*10+9; j>=10; j-=1){
+                board[j] = board[j-10];
+            }
+            for(int j=0; j<10; j++){
+                board[j] = false;
+            }
+            linesRemoved++;
+        }
+    }
+    return linesRemoved;
+}
 
 //keychecks for tile functions
 int keychecks(){
