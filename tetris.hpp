@@ -13,13 +13,18 @@ void printBoard(int piecesPos[4]){
     for (int i = 0; i < 4; i++){
         board[piecesPos[i]] = true;
     }
-    std::cout<<"\n\n\n";
+    std::cout<<"\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n############\n#"<<std::flush;
     for(int i = 0; i < sizeof(board); i++){
-        if (i % 10 == 0){
-            std::cout<<std::endl;
+        if (i % 10 == 0 && i != 0){
+            std::cout<<"#\n#"<<std::flush;
         }
-        std::cout<<board[i]<<std::flush;
+        if (board[i]){
+            std::cout<<"■"<<std::flush;
+        }else{
+            std::cout<<" "<<std::flush;
+        }
     }
+    std::cout<<"#\n############"<<std::flush;
     for (int i = 0; i < 4; i++){
         board[piecesPos[i]] = false;
     }
@@ -34,7 +39,7 @@ int updateBoard(){
             counter ++;
         }
         if(counter == 10){
-            std::cout<<"line"<<i<<"to be removed"<<std::flush;
+            //std::cout<<"line"<<i<<"to be removed"<<std::flush;
             for(int j=i*10+9; j>=10; j-=1){
                 board[j] = board[j-10];
             }

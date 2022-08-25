@@ -19,9 +19,13 @@ int main()
     while (true)
     {
         tile actTile;
+        if(board[actTile.pos[0]]||board[actTile.pos[1]]||board[actTile.pos[2]]||board[actTile.pos[3]]){
+            std::cout<<"\n\nGAME OVER\n\n";
+            break;
+        }
         printBoard(actTile.pos);
-        while(!actTile.collisionCheck(board)){
-
+        while(!actTile.collisionCheck(board))
+        {
             //keychecks
             press = keychecks();
             if(pressed != press){
