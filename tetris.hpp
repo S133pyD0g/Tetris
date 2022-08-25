@@ -19,7 +19,7 @@ void printBoard(int piecesPos[4]){
             std::cout<<"#\n#"<<std::flush;
         }
         if (board[i]){
-            std::cout<<"■"<<std::flush;
+            std::cout<<"█"<<std::flush;
         }else{
             std::cout<<" "<<std::flush;
         }

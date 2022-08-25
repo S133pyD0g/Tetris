@@ -1,7 +1,7 @@
 #include "tile.hpp"
 #include "tetris.hpp"
 //#include <time.h>
-//#include <chrono>
+#include <chrono>
 
 //main file that is executed
 
@@ -15,6 +15,8 @@ int main()
     clearBoard();
     int press = 0;
     int pressed = 0;
+    int time;
+    int prevTime = 0;
 
     while (true)
     {
@@ -23,7 +25,9 @@ int main()
             std::cout<<"\n\nGAME OVER\n\n";
             break;
         }
+        auto start = std::chrono::high_resolution_clock::now();
         printBoard(actTile.pos);
+
         while(!actTile.collisionCheck(board))
         {
             //keychecks
@@ -58,6 +62,15 @@ int main()
             }
 
             //tickTile
+            auto finish = std::chrono::high_resolution_clock::now();
+            std::chrono::duration<double> elapsed = finish - start;
+            time = int(elapsed.count()*10);
+            if(time % 10 == 0 && time != prevTime){
+                actTile.moveDown();
+                printBoard(actTile.pos);
+            }
+            prevTime = time;
+            //std::cout<<int(time*10);
         }
         for(int i=0; i<4; i++){
             board[actTile.pos[i]] = true;
@@ -70,5 +83,6 @@ int main()
 //auto start = std::chrono::high_resolution_clock::now();
 //auto finish = std::chrono::high_resolution_clock::now();
 //std::chrono::duration<double> elapsed = finish - start;
-//std::cout<<elapsed.count();
+//double time = elapsed.count();
+//std::cout<<time;
 //while(int(elapsed.count() * 10) % 10 != 0){};
