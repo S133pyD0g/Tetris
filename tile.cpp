@@ -3,13 +3,13 @@
 #include <iostream>
 #include <time.h>
 
-
 //executables of the class functions defined in tile.hpp
 
+//constructor
 tile::tile(){
     pos[0] = 5;
     int rotation = 0;
-    //chooses a random type of tile, then according to that type forms the initial piecePos[] array
+    //chooses a random type of tile, then according to that type forms the initial pos[] array
     srand(time(NULL));
     this->type = rand() %7;
     switch(this->type){
@@ -51,6 +51,7 @@ tile::tile(){
     }
 }
 
+//destructor
 tile::~tile(){}
 
 //calculates new position of all pieces of the tile when turning 90* with the piecePos[0] tile as turning point
@@ -77,7 +78,7 @@ void tile::rotate(bool board[200]){
     }
 }
 
-//functions to move tile 1 space left, right and down
+//move tile one space to the left
 void tile::moveLeft(bool board[200]){
     for( int i = 0; i < 4; i++){
         if(pos[i]%10-1<0||board[pos[i]-1]){
@@ -89,6 +90,8 @@ void tile::moveLeft(bool board[200]){
         pos[i] = pos[i] -1;
     }
 }
+
+//move tile one space to the right
 void tile::moveRight(bool board[200]){
     for( int i = 0; i < 4; i++){
         if(pos[i]%10+1>9||board[pos[i]+1]){
@@ -100,13 +103,15 @@ void tile::moveRight(bool board[200]){
         pos[i] += 1;
     }
 }
+
+//move tile one space down
 void tile::moveDown(){
     for (int i = 0; i < 4; i++){
         pos[i] += 10;
     }
 }
 
-//collisionCheck on previous tiles
+//collisionCheck on previous tiles and the bottom of the board
 bool tile::collisionCheck(bool board[200]){
     for(int i = 0; i < 4; i++){
         if(board[pos[i]+10]||pos[i]+10>=200){

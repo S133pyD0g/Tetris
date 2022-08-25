@@ -2,13 +2,18 @@
 #include <iostream>
 #include <Windows.h>
 
-//all functions concerning the player board
+//all functions concerning the player board and keychecks
+
 bool board[200];
+
+//sets all board spaces to false/empty
 void clearBoard(){
     for(int i = 0; i < sizeof(board); i++){
         board[i] = 0;
     }
 }
+
+//prints the playing board to the terminal
 void printBoard(int piecesPos[4]){
     for (int i = 0; i < 4; i++){
         board[piecesPos[i]] = true;
@@ -29,7 +34,8 @@ void printBoard(int piecesPos[4]){
         board[piecesPos[i]] = false;
     }
 }
-//removes full lines and moves all of the above down
+
+//removes full lines and moves all of the above down, returns the number of removed lines
 int updateBoard(){
     int linesRemoved = 0;
     for(int i=0; i<20; i++){

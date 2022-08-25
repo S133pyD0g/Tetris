@@ -1,12 +1,13 @@
 #pragma once
+
 //tile class definition
 
 class tile
 {
     public:
-        int rotation;
-        int type;
-        int pos[4];
+        int rotation;   //current rotation of tile
+        int type;       //type of current tile
+        int pos[4];     //positions of the four single tile parts on the board
 
         tile();
         ~tile();

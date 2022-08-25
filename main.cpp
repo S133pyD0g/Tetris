@@ -1,6 +1,5 @@
 #include "tile.hpp"
 #include "tetris.hpp"
-//#include <time.h>
 #include <chrono>
 
 //main file that is executed
@@ -18,9 +17,10 @@ int main()
     int time;
     int prevTime = 0;
 
-    while (true)
-    {
+    while (true){
+
         tile actTile;
+        //GAME OVER check
         if(board[actTile.pos[0]]||board[actTile.pos[1]]||board[actTile.pos[2]]||board[actTile.pos[3]]){
             std::cout<<"\n\nGAME OVER\n\n";
             break;
@@ -70,19 +70,11 @@ int main()
                 printBoard(actTile.pos);
             }
             prevTime = time;
-            //std::cout<<int(time*10);
         }
+        //writes finished tile to board
         for(int i=0; i<4; i++){
             board[actTile.pos[i]] = true;
         }
         updateBoard();
     }
 }
-
-//printBoard(actTile.pos);
-//auto start = std::chrono::high_resolution_clock::now();
-//auto finish = std::chrono::high_resolution_clock::now();
-//std::chrono::duration<double> elapsed = finish - start;
-//double time = elapsed.count();
-//std::cout<<time;
-//while(int(elapsed.count() * 10) % 10 != 0){};
