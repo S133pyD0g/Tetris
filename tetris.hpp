@@ -1,8 +1,11 @@
 #pragma once
 #include <iostream>
 #include <Windows.h>
+#include <string>
+#include <fstream>
+#include <chrono>
 
-//all functions concerning the player board and keychecks
+//all functions concerning the player board, keychecks and the highscore
 
 bool board[200];
 
@@ -14,24 +17,24 @@ void clearBoard(){
 }
 
 //prints the playing board to the terminal
-void printBoard(int piecesPos[4]){
+void printBoard(int pos[4], int level, int score, int remLines, int highscore){
     for (int i = 0; i < 4; i++){
-        board[piecesPos[i]] = true;
+        board[pos[i]] = true;
     }
-    std::cout<<"\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n############\n#"<<std::flush;
+    std::cout<<"\n\n\n\n\n\n\n\n\n\n\n\n\nLevel: "<<level<<"\nScore: "<<score<<"\nRemoved Lines: "<<remLines <<"\n\nHighscore: "<<highscore<<"\n\n######################\n#"<<std::flush;
     for(int i = 0; i < sizeof(board); i++){
         if (i % 10 == 0 && i != 0){
             std::cout<<"#\n#"<<std::flush;
         }
         if (board[i]){
-            std::cout<<"█"<<std::flush;
+            std::cout<<"██"<<std::flush;
         }else{
-            std::cout<<" "<<std::flush;
+            std::cout<<"  "<<std::flush;
         }
     }
-    std::cout<<"#\n############"<<std::flush;
+    std::cout<<"#\n######################"<<std::flush;
     for (int i = 0; i < 4; i++){
-        board[piecesPos[i]] = false;
+        board[pos[i]] = false;
     }
 }
 
@@ -74,3 +77,52 @@ int keychecks(){
     }
     return 0;
 }
+
+int readHighscore(){
+    std::string sHighscore;
+    std::ifstream file;
+    file.open("highscore.txt");
+    if(!file.is_open()){
+        std::cout<<"file not found"<<std::endl;
+        return 0;
+    }
+    getline(file,sHighscore);
+    file.close();
+    return std::stoi(sHighscore);
+    
+}
+
+void setHighscore(const int highscore){
+    std::ofstream file;
+    file.open("highscore.txt");
+    if(!file.is_open()){
+        std::cout<<"file not found"<<std::endl;
+        return;
+    }
+    file<<highscore<<std::flush;
+    file.close();
+}
+
+class timer
+{
+    public:
+        std::chrono::time_point<std::chrono::high_resolution_clock> startPoint;
+        bool active;
+
+        timer(){active = false;}
+        ~timer(){}
+        void start(){
+            startPoint = std::chrono::high_resolution_clock::now();
+            active = true;
+        }
+        double split(){
+            if(active){
+                std::chrono::duration<double> split = std::chrono::high_resolution_clock::now() - startPoint;
+                return split.count();
+            }
+            return 0;
+        }
+        void stop(){
+            active = false;
+        }
+};
