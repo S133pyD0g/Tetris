@@ -6,13 +6,11 @@
 //executables of the class functions defined in tile.hpp
 
 //constructor
-tile::tile(){
+tile::tile(int type){
     pos[0] = 5;
     int rotation = 0;
-    //chooses a random type of tile, then according to that type forms the initial pos[] array
-    srand(time(NULL));
-    this->type = rand() %7;
-    switch(this->type){
+    //gets a random type for a tile, then according to that type forms the initial pos[] array
+    switch(type){
         case 0:
             pos[1] = pos[0]-2;
             pos[2] = pos[0]-1;

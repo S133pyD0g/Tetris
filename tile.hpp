@@ -9,7 +9,7 @@ class tile
         int type;       //type of current tile
         int pos[4];     //positions of the four single tile parts on the board
 
-        tile();
+        tile(int type);
         ~tile();
         void rotate(bool board[200]);
         void moveDown();
