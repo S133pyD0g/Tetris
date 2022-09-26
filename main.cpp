@@ -18,7 +18,7 @@ int main()
     int pressedKey = 0, lastPressedKey = 0;    //keycheck variables
     int level = 0, score = 0, remLines = 0, tetrisCounter = 0, lastRemLines = 0, lastTetrisCounter = 0;     //level & score variables
     int highscore = readHighscore();
-    int bagIndex = 0, tileBag[7] = {7, 7, 7, 7, 7, 7, 7};   //tileBag system variables+
+    int bagIndex = 0, tileBag[7] = {7, 7, 7, 7, 7, 7, 7};   //tileBag system variables
 
     while (true){
         
@@ -39,6 +39,7 @@ int main()
         bagIndex++;
 
         tile actTile(type);
+
         //GAME OVER check
         if(board[actTile.pos[0]]||board[actTile.pos[1]]||board[actTile.pos[2]]||board[actTile.pos[3]]){
             std::cout<<"\n\nGAME OVER\n\n";
@@ -59,8 +60,10 @@ int main()
                 switch (pressedKey)
                 {
                 case 1:
-                    actTile.rotate(board);
-                    printBoard(actTile.pos, level, score, remLines, highscore);
+                    if (actTile.rotate(board)){
+                        colTimer.stop();
+                        printBoard(actTile.pos, level, score, remLines, highscore);
+                    }
                     //std::cout<<"1"<<std::flush;
                     break;
                 case 2:

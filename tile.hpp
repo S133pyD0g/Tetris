@@ -11,7 +11,7 @@ class tile
 
         tile(int type);
         ~tile();
-        void rotate(bool board[200]);
+        bool rotate(bool board[200]);
         void moveDown();
         void moveLeft(bool board[200]);
         void moveRight(bool board[200]);

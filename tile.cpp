@@ -9,6 +9,7 @@
 tile::tile(int type){
     pos[0] = 5;
     int rotation = 0;
+    this->type = type;
     //gets a random type for a tile, then according to that type forms the initial pos[] array
     switch(type){
         case 0:
@@ -53,27 +54,60 @@ tile::tile(int type){
 tile::~tile(){}
 
 //calculates new position of all pieces of the tile when turning 90* with the piecePos[0] tile as turning point
-void tile::rotate(bool board[200]){
+bool tile::rotate(bool board[200]){
     this->rotation++;
     this->rotation %= 4;
-    int xOffset, yOffset;
     if (this->type != 1){
-        for (int i = 1; i < 4; i++){
-            xOffset = pos[i]%10 -pos[0]%10;
-            yOffset = (pos[i]-pos[0]-xOffset)/10;
-            int newPos = xOffset*10 - yOffset + pos[0];
-            if(pos[0]%10 - yOffset < 0 || pos[0]%10 - yOffset > 9 || newPos > 199 || newPos < 0 || board[newPos]){
-                //std::cout<<"can't rotate";
-                return;
+        //collision checks for normal rotation first, if collision is detected it checks for one space to the bottom, left and right
+        //and gives a corresponding offset  value on to the rotation execution
+        int i;
+        bool x;
+        int xOffset, yOffset;
+        for(i = 0; i < 11; i++){
+            //std::cout<<std::endl<<i<<" "<<x<<" "<<pos[0]<<std::endl;
+            x = false;
+            for(int j = 0; j < 4; j++){
+                xOffset = pos[j]%10 -pos[0]%10;
+                yOffset = (pos[j]-pos[0]-xOffset)/10;
+                int newPos = xOffset*10 - yOffset + pos[0] + i;
+                if(pos[0]%10 - yOffset + i%10 < 0 || pos[0]%10 - yOffset + i%10 > 9 || newPos > 199 || newPos < 0 || board[newPos]){
+                    x = true;
+                }
+            }
+            if(!x){
+                break;
+            }
+            switch(i){
+                case 0: 
+                    i = -11;
+                    break;
+                case-10:
+                    i = -2;
+                    break;
+                case -1:
+                    i = 0;
+                    break;
+                case 1:
+                    i = 9;
+                    break;
+                default:
+                    //std::cout << "can't rotate"<<std::endl;
+                    break;
             }
         }
-        for (int i = 1; i < 4; i++){
-            xOffset = pos[i]%10 -pos[0]%10;
-            yOffset = (pos[i]-pos[0]-xOffset)/10;
-            pos[i] = xOffset*10 - yOffset + pos[0];
+        if(x){
+            return 0;
+        }
+        //the actual rotation part
+        for (int j = 1; j < 4; j++){
+            xOffset = pos[j]%10 -pos[0]%10;
+            yOffset = (pos[j]-pos[0]-xOffset)/10;
+            pos[j] = xOffset*10 - yOffset + pos[0] + i;
             //std::cout<<std::endl<<xOffset<<" "<<yOffset;
         }
+        pos[0] += i;
     }
+    return 1;
 }
 
 //move tile one space to the left
@@ -113,8 +147,8 @@ void tile::moveDown(){
 bool tile::collisionCheck(bool board[200]){
     for(int i = 0; i < 4; i++){
         if(board[pos[i]+10]||pos[i]+10>=200){
-            return true;
+            return 1;
         }
     }
-    return false;
+    return 0;
 }
